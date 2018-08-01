@@ -5,7 +5,8 @@ public class Knight {
     private int life = 100;
 
     public Knight(int id) {
-        this(id, null);
+        this.id = id;
+        this.enemy = this;
     }
 
     public Knight(int id, Knight enemy) {

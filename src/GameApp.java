@@ -1,3 +1,4 @@
+import java.util.Collections;
 import java.util.LinkedList;
 import java.util.concurrent.ThreadLocalRandom;
 
@@ -32,16 +33,23 @@ public class GameApp {
     private static LinkedList<Knight> initializeKnights(int qty) {
         LinkedList<Knight> knights = new LinkedList<>();
 
-        Knight knight = new Knight(1);
-        for (int i = 1; i <= qty; i++) {
-            Knight nextKnight = new Knight(i+1);
-            knight.setEnemy(nextKnight);
-
-            knights.add(knight);
-
-            knight = nextKnight;
+        if (qty < 1) {
+            return knights;
         }
-        knights.getLast().setEnemy(knights.getFirst());
+
+        Knight newKnight;
+        Knight knight = new Knight(1);
+        for (int i = 1; i < qty; i++) {
+            if (knights.isEmpty()) {
+                knights.add(knight);
+            }
+            newKnight = new Knight(i+1, knights.getFirst());
+            knight.setEnemy(newKnight);
+
+            knights.add(newKnight);
+
+            knight = newKnight;
+        }
 
         return knights;
     }
