@@ -1,4 +1,3 @@
-import java.util.Collections;
 import java.util.LinkedList;
 import java.util.concurrent.ThreadLocalRandom;
 
@@ -11,11 +10,11 @@ public class GameApp {
         while (attacker.getEnemy() != attacker) {
 
             Knight enemy = attacker.getEnemy();
-            int hitForce = calculateHit();
+            int hitPower = calculateHit();
 
-            enemy.takeHit(hitForce);
+            enemy.takeHit(hitPower);
 
-            System.out.println("K" + attacker.getId() + " hits with " + hitForce + " points to K" + enemy.getId());
+            System.out.println("K" + attacker.getId() + " hits with " + hitPower + " points to K" + enemy.getId());
 
             if (enemy.isDead()) {
                 attacker.setEnemy(enemy.getEnemy());
