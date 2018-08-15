@@ -39,10 +39,8 @@ public class GameApp {
 
         Knight newKnight;
         Knight knight = new Knight(1);
+        knights.add(knight);
         for (int i = 1; i < qty; i++) {
-            if (knights.isEmpty()) {
-                knights.add(knight);
-            }
             newKnight = new Knight(i+1, knights.getFirst());
             knight.setEnemy(newKnight);
 
