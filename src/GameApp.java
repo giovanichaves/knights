@@ -1,12 +1,14 @@
-import java.util.LinkedList;
 import java.util.concurrent.ThreadLocalRandom;
 
 public class GameApp {
 
     public static void main(String[] args) {
-        LinkedList<Knight> knights = initializeKnights(6);
+        Knight attacker = initializeKnights(6);
 
-        Knight attacker = knights.getFirst();
+        if (attacker == null) {
+            System.out.println("No knights showed up");
+        }
+
         while (attacker.getEnemy() != attacker) {
 
             Knight enemy = attacker.getEnemy();
@@ -20,35 +22,29 @@ public class GameApp {
                 attacker.setEnemy(enemy.getEnemy());
 
                 System.out.println("K" + enemy.getId() + " dies");
-                knights.remove(enemy);
             }
 
             attacker = attacker.getEnemy();
         }
 
-        System.out.println("K" + knights.getFirst().getId() + " wins");
+        System.out.println("K" + attacker.getId() + " wins");
     }
 
-    private static LinkedList<Knight> initializeKnights(int qty) {
-        LinkedList<Knight> knights = new LinkedList<>();
-
+    private static Knight initializeKnights(int qty) {
         if (qty < 1) {
-            return knights;
+            return null;
         }
 
-        Knight newKnight;
-        Knight knight = new Knight(1);
-        knights.add(knight);
-        for (int i = 1; i < qty; i++) {
-            newKnight = new Knight(i+1, knights.getFirst());
+        Knight newKnight, knight;
+        Knight firstKnight = knight = new Knight(1);
+        for (int i = 2; i <= qty; i++) {
+            newKnight = new Knight(i, firstKnight);
             knight.setEnemy(newKnight);
-
-            knights.add(newKnight);
 
             knight = newKnight;
         }
 
-        return knights;
+        return firstKnight;
     }
 
 
